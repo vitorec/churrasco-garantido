@@ -1,23 +1,29 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper no-margin">
+        <!-- Content Header (Page header) -->
 
-                <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+        @include('layouts.app-buttons')
 
-                    Você está logado!
-                </div>
-            </div>
-        </div>
+        <section class="content-header">
+            <h1>
+                Dashboard
+                {{--<small>Optional description</small>--}}
+            </h1>
+        </section>
+
+        <!-- Main content -->
+        <section class="content container-fluid">
+
+            <!-------------------------
+            | Your Page Content Here |
+            -------------------------->
+            {{ config('name') }}
+        </section>
+        <!-- /.content -->
     </div>
-</div>
+    <!-- /.content-wrapper -->
 @endsection
+
