@@ -6,18 +6,29 @@
                 <a class="btn btn-app">
                     <i class="fa fa-dashboard"></i> Dashboard
                 </a>
+
                 <a class="btn btn-app">
                     <i class="fa fa-building"></i> Cadastrar nova empresa
                 </a>
+
                 <a class="btn btn-app">
                     <i class="fa fa-inbox"></i> Novo pedido
                 </a>
+
                 <a class="btn btn-app">
                     <i class="fa fa-user"></i> Minha conta
                 </a>
-                <a class="btn btn-app">
+
+                <a class="btn btn-app" href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
                     <i class="fa fa-sign-out"></i> Sair
                 </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    {{ csrf_field() }}
+                </form>
+
             </div>
             <!-- /.box-body -->
         </div>

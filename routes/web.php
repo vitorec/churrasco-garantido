@@ -14,7 +14,7 @@
 Route::get('/', function () {
     if (auth()->check())
     {
-        return redirect('home');
+        return redirect('dashboard');
     }
     else
     {
@@ -24,4 +24,4 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/dashboard', 'HomeController@index')->name('home');
