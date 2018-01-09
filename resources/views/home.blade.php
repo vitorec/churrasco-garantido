@@ -20,7 +20,7 @@
             <!-------------------------
             | Your Page Content Here |
             -------------------------->
-            {{ config('name') }}
+
         </section>
         <!-- /.content -->
     </div>
