@@ -25,3 +25,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/dashboard', 'HomeController@index')->name('home');
+
+Route::get('/dashboard/companies.json', 'CompanyController@getCompaniesData');
+
