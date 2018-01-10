@@ -13,4 +13,7 @@
     <script src="{{ asset('js/dashboard.js') }}"></script>
 @endif
 
-
+@if (request()->is('*/new')))
+    <script src="{{ asset('bower_components/inputmask/dist/min/jquery.inputmask.bundle.min.js') }}"></script>
+    <script src="{{ asset('js/forms.js') }}"></script>
+@endif

@@ -28,3 +28,8 @@ Route::get('/dashboard', 'HomeController@index')->name('home');
 
 Route::get('/dashboard/companies.json', 'CompanyController@getCompaniesData');
 
+Route::get('/company/new', 'CompanyController@create');
+
+Route::get('/company/{company}/show', 'CompanyController@show');
+
+Route::post('/dashboard', 'CompanyController@store');
