@@ -118,6 +118,7 @@ return [
 
     'attributes' => [
         'password'  =>  'Senha',
+        'cnpj'      =>  'CNPJ',
     ],
 
 ];

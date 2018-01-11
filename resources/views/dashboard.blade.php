@@ -18,6 +18,9 @@
 
             <div class="row">
                 <div class="col-xs-12">
+
+                    @include('layouts.messages')
+
                     <div class="box">
                         <div id="data"></div>
                         <div class="box-header">
