@@ -27,7 +27,10 @@ class ProfileController extends Controller
             'password'  => 'required|confirmed',
         ]);
 
-        $user->update($request->all());
+        $user->update([
+            'email'     =>  $request->email,
+            'password'  =>  bcrypt($request->password),
+        ]);
 
         return redirect('profile')->with('success','Seus dados foram alterados com sucesso!');
     }
