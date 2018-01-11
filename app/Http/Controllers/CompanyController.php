@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use DataTables;
 use App\Company;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
@@ -16,20 +18,18 @@ class CompanyController extends Controller
         return view('companies.create');
     }
 
-    public function show(Company $company)
-    {
-        return view('companies.show', compact('company'));
-    }
+    public function store(Request $request){
 
-    /**
-     * Save the company
-     */
-    public function store(){
         // Validation
-        $this->validate(request(), [
-            'name'  => 'required',
-            'cnpj'  => 'required'
-        ]);
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'cnpj' => [
+                'required',
+                'regex:(\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2})',
+            ],
+        ])->setAttributeNames(['name' => 'Nome fantasia']);
+
+        $validator->validate($request->all());
 
         // Save the company
          Company::create([
@@ -39,7 +39,7 @@ class CompanyController extends Controller
          ]);
 
         // Redirect to the dashboard
-        return redirect('/dashboard');
+        return redirect('dashboard')->with('success', 'Informações salvas com sucesso!');
     }
 
     /**
