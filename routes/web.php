@@ -33,3 +33,7 @@ Route::get('/company/new', 'CompanyController@create');
 Route::get('/company/{company}/show', 'CompanyController@show');
 
 Route::post('/dashboard', 'CompanyController@store');
+
+Route::get('/profile', 'ProfileController@show');
+
+Route::post('/profile', 'ProfileController@update');

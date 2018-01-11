@@ -22,16 +22,24 @@
                             {{ csrf_field() }}
 
                             <div class="box-body">
-                                <div class="form-group">
+                                <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
                                     <label for="name" class="control-label">Nome fantasia</label>
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Nome fantasia" required>
+                                    <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" placeholder="Nome fantasia" >
+
+                                    @if ($errors->has('name'))
+                                        <span class="help-block">{{ $errors->first('name') }}</span>
+                                    @endif
                                 </div>
 
-                                <div class="form-group validate">
+                                <div class="form-group validate {{ $errors->has('cnpj') ? ' has-error' : '' }}">
                                     <label for="cnpj" class="control-label">CNPJ</label>
-                                    <input type="text" class="form-control" id="cnpj" name="cnpj" required
+                                    <input type="text" class="form-control" id="cnpj" name="cnpj" value="{{ old('cnpj') }}"
                                        data-inputmask="'mask': '99.999.999/9999-99'">
+
                                     <span class="help-block" style="display: none">Por favor, informe um CNPJ válido.</span>
+                                    @if ($errors->has('cnpj'))
+                                        <span class="help-block">{{ $errors->first('cnpj') }}</span>
+                                    @endif
                                 </div>
                             </div>
 
