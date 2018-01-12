@@ -24,7 +24,7 @@
                             <div class="box-body">
                                 <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
                                     <label for="name" class="control-label">Nome fantasia</label>
-                                    <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" placeholder="Nome fantasia" >
+                                    <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" placeholder="Nome fantasia" required>
 
                                     @if ($errors->has('name'))
                                         <span class="help-block">{{ $errors->first('name') }}</span>
@@ -33,7 +33,7 @@
 
                                 <div class="form-group validate {{ $errors->has('cnpj') ? ' has-error' : '' }}">
                                     <label for="cnpj" class="control-label">CNPJ</label>
-                                    <input type="text" class="form-control" id="cnpj" name="cnpj" value="{{ old('cnpj') }}"
+                                    <input type="text" class="form-control" id="cnpj" name="cnpj" value="{{ old('cnpj') }}" required
                                        data-inputmask="'mask': '99.999.999/9999-99'">
 
                                     <span class="help-block" style="display: none">Por favor, informe um CNPJ válido.</span>
