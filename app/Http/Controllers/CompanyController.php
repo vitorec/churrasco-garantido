@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DataTables;
 use App\Company;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
@@ -47,8 +48,14 @@ class CompanyController extends Controller
      */
     public function getCompaniesData()
     {
-        $companies = auth()->user()->companies()
-            ->get(['name', 'cnpj', 'id']);
+        $id = auth()->user()->id;
+
+        $companies = DB::table('companies')
+            ->leftJoin('orders', 'company_id', '=', 'companies.id')
+            ->select('companies.id', 'name', 'cnpj', DB::raw("COALESCE(COUNT(orders.id), 0) as qtd"))
+            ->where('companies.user_id', '=', $id)
+            ->groupBy('company_id', 'companies.id', 'name', 'cnpj')
+            ->get();
 
         return DataTables::of($companies)->make(true);
     }

@@ -2,7 +2,6 @@ $(document).ready(function(){
     init_DataTables();
 });
 
-
 function init_DataTables() {
     $('#companies').DataTable({
         ajax: {
@@ -23,12 +22,16 @@ function init_DataTables() {
             {data: 'name', name: 'name'},
             {data: 'cnpj', name: 'cnpj'},
             {
-                data: 'id', name: 'id',
+                data: 'qtd', name: 'qtd',
                 className: 'text-center',
                 render: function (data, type, row){
-                    return '<a href="/company/'+ data + '/orders">' + data + '</a>';
+                    var orders = 'Nenhum';
+                    if (data > 0) {
+                        orders = '<a href="/company/'+ row.id + '/orders">' + data + '</a>';
+                    }
+                    return orders;
                 }
-            },
+            }
         ]
     })
 }
