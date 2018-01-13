@@ -18,8 +18,6 @@
                             <h3 class="box-title">Novo pedido</h3>
                         </div>
 
-
-
                         <form role="form" id="new-order" method="POST" action="/order/new">
 
                             {{ csrf_field() }}

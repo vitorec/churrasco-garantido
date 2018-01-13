@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Gate;
 use DataTables;
+use App\Order;
 use App\Company;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -20,13 +21,20 @@ class CompanyController extends Controller
         return view('companies.create');
     }
 
-    public function show(Company $company)
+    public function showOrders(Company $company)
     {
         // Abort if user not owns the company
-        if (Gate::denies('company.show', $company)) {
+        if (Gate::denies('company.orders', $company)) {
             abort(401, 'Ação não autorizada.');
         }
-        return view('companies.show', compact('company'));
+
+        // Get the company orders
+        $orders = Order::with('products')
+            ->where('company_id', '=', $company->id)
+            ->orderBy('created_at', 'DESC')
+            ->get();
+
+        return view('companies.show-orders', compact(['company', 'orders']));
     }
 
     public function store(Request $request){

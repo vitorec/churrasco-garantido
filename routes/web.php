@@ -32,7 +32,7 @@ Route::get('/order/new/companies.json', 'CompanyController@getCompaniesSelect');
 
 Route::get('/company/new', 'CompanyController@create');
 
-Route::get('/company/{company}/orders', 'CompanyController@show')->name('orders');
+Route::get('/company/{company}/orders', 'CompanyController@showOrders')->name('orders');
 
 Route::post('/dashboard', 'CompanyController@store');
 

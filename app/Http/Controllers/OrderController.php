@@ -59,11 +59,11 @@ class OrderController extends Controller
         }
 
         // Get the company
-        $company = Company::find($request->company_id);
+        $company = Company::find($request->company_id)->with('order');
 
         // Redirect to orders page
         return redirect()
-            ->action('CompanyController@show', ['company' => $company])
+            ->action('CompanyController@showOrders', ['company' => $company])
             ->with('success', 'Pedido salvo com sucesso!');
     }
 

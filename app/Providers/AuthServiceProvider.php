@@ -26,7 +26,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         // Only the owner of the company can access
-        Gate::define('company.show', function ($user, $company) {
+        Gate::define('company.orders', function ($user, $company) {
             return $user->id === $company->user_id;
         });
 

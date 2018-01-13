@@ -31,20 +31,6 @@ function init_DataTables() {
                     }
                     return orders;
                 }
-            },
-
-            {
-                targets: -1,
-                data: null,
-                render: function (data, type, row) {
-                    if (data.id > 10) {
-                        return '<a href="company/' + data.id + '/show" class="btn btn-primary btn-xs text-center">Ver</a>';
-                    }
-                    return null;
-                },
-                searchable: false,
-                orderable: false,
-                className: 'text-center'
             }
         ]
     })

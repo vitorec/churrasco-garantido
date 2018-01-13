@@ -6,9 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    protected $fillable = [
-        'user_id', 'company_id',
-    ];
 
     public function user()
     {
@@ -23,5 +20,10 @@ class Order extends Model
     public function products()
     {
         return $this->belongsToMany(Product::class);
+    }
+
+    public function getProductsList()
+    {
+        return $this->products()->get(['qtd', 'name']);
     }
 }
