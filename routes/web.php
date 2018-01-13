@@ -32,7 +32,7 @@ Route::get('/order/new/companies.json', 'CompanyController@getCompaniesSelect');
 
 Route::get('/company/new', 'CompanyController@create');
 
-Route::get('/company/{company}/show', 'CompanyController@show');
+Route::get('/company/{company}/orders', 'CompanyController@show')->name('orders');
 
 Route::post('/dashboard', 'CompanyController@store');
 
@@ -43,3 +43,4 @@ Route::post('/profile', 'ProfileController@update');
 Route::get('/order/new', 'OrderController@create');
 
 Route::post('/order/new', 'OrderController@store');
+

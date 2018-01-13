@@ -3,7 +3,7 @@ $(document).ready(function(){
     $('#cnpj').inputmask();
 
     $('.select2').select2({
-        allowClear: true,
+        allowClear: true
     });
 
     $('.select-company').select2({
@@ -30,7 +30,7 @@ $('#add-button').on('click', function(){
         var name = product[0].text;
         var data = {id: id, name: name, qtd: qtd};
 
-        appendInput(form, id, 'products[]', qtd);
+        appendInput(form, id, 'products['+ id +']', qtd);
         appendRow(table, data);
 
         // desabilitar a option selecionada no select2

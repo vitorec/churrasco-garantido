@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\Company;
 use App\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
@@ -37,7 +39,32 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        // Validation
+        $validator = Validator::make($request->all(), [
+            'company_id' => 'required|numeric',
+            'products'   => 'array|min:1',
+        ]);
+
+        $validator->validate($request->all());
+
+        // Save the order
+        $order = Order::create([
+            'user_id'     =>  auth()->id(),
+            'company_id'  =>  $request->company_id
+        ]);
+
+        // Save the products order
+        foreach ($request->products as $id => $qtd){
+            $order->products()->attach($id, ['qtd' => $qtd]);
+        }
+
+        // Get the company
+        $company = Company::find($request->company_id);
+
+        // Redirect to orders page
+        return redirect()
+            ->action('CompanyController@show', ['company' => $company])
+            ->with('success', 'Pedido salvo com sucesso!');
     }
 
     /**

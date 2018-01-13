@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Gate;
 use DataTables;
 use App\Company;
 use Illuminate\Support\Facades\DB;
@@ -17,6 +18,15 @@ class CompanyController extends Controller
     public function create()
     {
         return view('companies.create');
+    }
+
+    public function show(Company $company)
+    {
+        // Abort if user not owns the company
+        if (Gate::denies('company.show', $company)) {
+            abort(401, 'Ação não autorizada.');
+        }
+        return view('companies.show', compact('company'));
     }
 
     public function store(Request $request){
@@ -62,9 +72,13 @@ class CompanyController extends Controller
 
     public function getCompaniesSelect()
     {
-        $companies['results'] = auth()->user()->companies()
-            ->get(['name as text', 'id']);
+        $id = auth()->user()->id;
 
+        $companies['results']  = DB::table('companies')
+            ->select('id', 'name as text')
+            ->where('user_id', '=', $id)
+            ->orderBy('name', 'ASC')
+            ->get();
         return $companies;
     }
 }

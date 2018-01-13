@@ -21,7 +21,7 @@ class CreateOrdersTable extends Migration
         });
 
         Schema::create('order_product', function (Blueprint $table) {
-            $table->integer('order_id')->references('id')->on('orders');
+            $table->integer('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->integer('product_id')->references('id')->on('products');
             $table->integer('qtd');
             $table->primary(['order_id', 'product_id']);
