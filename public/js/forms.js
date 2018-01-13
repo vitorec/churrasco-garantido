@@ -2,79 +2,79 @@ $(document).ready(function(){
 
     $('#cnpj').inputmask();
 
+    $('.select2').select2({
+        allowClear: true,
+    });
+
+    $('.select-company').select2({
+        allowClear: true,
+        ajax: {
+            url: '/order/new/companies.json',
+            dataType: 'json',
+            delay: 250
+        }
+    });
+});
+
+$('#add-button').on('click', function(){
+    var elProduct = $('#product');
+    var elQtd = $('#qtd');
+    var form = $('#new-order');
+    var table = $('#list');
+    var qtd = elQtd.val();
+
+    // adicionar os dados na tabela e os inputs no form
+    if (elProduct.val() !== '' && (elQtd.val() !== '' && qtd > 0)){
+        var product = elProduct.select2('data');
+        var id = product[0].id;
+        var name = product[0].text;
+        var data = {id: id, name: name, qtd: qtd};
+
+        appendInput(form, id, 'products[]', qtd);
+        appendRow(table, data);
+
+        // desabilitar a option selecionada no select2
+        disableOptionSelect(elProduct);
+
+        // limpar os inputs product e qtd
+        clearFields(elProduct, elQtd);
+    }
+    else {
+        showErrors();
+    }
+});
+
+$('#product').on('select2:select', function () {
+    $(this).parent().removeClass('has-error');
+    $('#msg-product').hide();
+});
+
+
+$('#qtd').on('change', function () {
+    var qtd = parseInt($(this).val());
+    if ($(this).val() !==  '' && qtd > 0) {
+        $(this).parent().removeClass('has-error');
+        $('#msg-qtd').hide();
+    }
+});
+
+$(document).on('click', '.remove-item', function (e) {
+    e.preventDefault();
+    var id = $(this).attr('data-id');
+    removeItem(id);
 });
 
 $('#new-company').on('submit', function(e){
     e.preventDefault();
     var form = $(this)[0];
-    console.log(form);
     var cnpj = $('#cnpj').val();
     if (validarCNPJ(cnpj)){
         $('.validate').removeClass('has-error').addClass('has-success');
         $('.help-block').hide();
         form.submit();
-        // console.log('ok');
     }
     else {
         $('.validate').removeClass('has-success').addClass('has-error');
         $('.help-block').show();
-        console.log('erro');
     }
 });
-
-function validarCNPJ(cnpj) {
-
-    cnpj = cnpj.replace(/[^\d]+/g, '');
-
-    if (cnpj == '') return false;
-
-    if (cnpj.length != 14)
-        return false;
-
-    // Elimina CNPJs invalidos conhecidos
-    if (cnpj == "00000000000000" ||
-        cnpj == "11111111111111" ||
-        cnpj == "22222222222222" ||
-        cnpj == "33333333333333" ||
-        cnpj == "44444444444444" ||
-        cnpj == "55555555555555" ||
-        cnpj == "66666666666666" ||
-        cnpj == "77777777777777" ||
-        cnpj == "88888888888888" ||
-        cnpj == "99999999999999")
-        return false;
-
-    // Valida DVs
-    var tamanho = cnpj.length - 2
-    var numeros = cnpj.substring(0, tamanho);
-    var digitos = cnpj.substring(tamanho);
-    var soma = 0;
-    var pos = tamanho - 7;
-    for (i = tamanho; i >= 1; i--) {
-        soma += numeros.charAt(tamanho - i) * pos--;
-        if (pos < 2)
-            pos = 9;
-    }
-    var resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
-    if (resultado != digitos.charAt(0))
-        return false;
-
-    tamanho = tamanho + 1;
-    numeros = cnpj.substring(0, tamanho);
-    soma = 0;
-    pos = tamanho - 7;
-    for (i = tamanho; i >= 1; i--) {
-        soma += numeros.charAt(tamanho - i) * pos--;
-        if (pos < 2)
-            pos = 9;
-    }
-    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
-    if (resultado != digitos.charAt(1))
-        return false;
-
-    return true;
-
-}
-
-
-

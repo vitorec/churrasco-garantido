@@ -15,5 +15,7 @@
 
 @if (request()->is('*/new')))
     <script src="{{ asset('bower_components/inputmask/dist/min/jquery.inputmask.bundle.min.js') }}"></script>
+    <script src="{{ asset('bower_components/select2/dist/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('js/helper-functions.js') }}"></script>
     <script src="{{ asset('js/forms.js') }}"></script>
 @endif

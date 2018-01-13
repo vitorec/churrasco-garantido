@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\Product;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -24,7 +25,8 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        $products = Product::pluck('name', 'id');
+        return view('orders.create', compact('products'));
     }
 
     /**
@@ -35,7 +37,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**

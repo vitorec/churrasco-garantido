@@ -59,4 +59,12 @@ class CompanyController extends Controller
 
         return DataTables::of($companies)->make(true);
     }
+
+    public function getCompaniesSelect()
+    {
+        $companies['results'] = auth()->user()->companies()
+            ->get(['name as text', 'id']);
+
+        return $companies;
+    }
 }
