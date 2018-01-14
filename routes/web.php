@@ -44,3 +44,4 @@ Route::get('/order/new', 'OrderController@create');
 
 Route::post('/order/new', 'OrderController@store');
 
+Route::delete('/order/delete/{order}', 'OrderController@destroy');

@@ -19,3 +19,10 @@
     <script src="{{ asset('js/helper-functions.js') }}"></script>
     <script src="{{ asset('js/forms.js') }}"></script>
 @endif
+
+@if (request()->route()->getName()) == 'orders')
+    <script src="{{ asset('bower_components/inputmask/dist/min/jquery.inputmask.bundle.min.js') }}"></script>
+    <script src="{{ asset('bower_components/jquery-confirm/jquery-confirm.min.js') }}"></script>
+    <script src="{{ asset('js/helper-functions.js') }}"></script>
+    <script src="{{ asset('js/orders.js') }}"></script>
+@endif

@@ -5,6 +5,9 @@
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+        <!-- CSFR token for ajax call -->
+        <meta name="_token" content="{{ csrf_token() }}"/>
+
         <title>{{ config('name') }}</title>
 
         <link rel="stylesheet" href="{{ asset('bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
@@ -20,6 +23,9 @@
 
         <!-- Select2 -->
         <link rel="stylesheet" href="{{ asset('bower_components/select2/dist/css/select2.min.css') }}">
+
+        <!-- Jquery Confirm -->
+        <link rel="stylesheet" href="{{ asset('bower_components/jquery-confirm/jquery-confirm.min.css') }}">
 
         <!-- Theme style -->
         <link rel="stylesheet" href="{{ asset('dist/AdminLTE.min.css') }}">

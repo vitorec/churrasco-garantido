@@ -64,7 +64,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach($orders as $order)
-                                            <tr>
+                                            <tr id="order-{{ $order->id }}">
                                                 <td class="text-center vertical-middle">{{ $order->id }}</td>
 
                                                 <td class="text-center">
@@ -76,7 +76,7 @@
                                                 </td>
 
                                                 <td class="text-center vertical-middle">
-                                                    <a href="#" class="btn btn-danger btn-xs remove-order" data-id="">Cancelar</a>
+                                                    <a href="#" class="btn btn-danger btn-xs remove-order" data-id="{{ $order->id }}">Cancelar</a>
                                                 </td>
                                             </tr>
                                             @endforeach

@@ -50,6 +50,16 @@ function showErrors() {
     }
 }
 
+function showSuccess(message){
+    $.alert({
+        title: message,
+        content: null,
+        type: 'green',
+        backgroundDismiss: true,
+        closeIcon: true
+    });
+}
+
 // Clear the product and qtd fields
 function clearFields(elProduct, elQtd) {
     elProduct.val(null).change();

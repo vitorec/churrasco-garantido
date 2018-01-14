@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Order;
-use App\Company;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -58,12 +57,9 @@ class OrderController extends Controller
             $order->products()->attach($id, ['qtd' => $qtd]);
         }
 
-        // Get the company
-        $company = Company::find($request->company_id)->with('order');
-
         // Redirect to orders page
         return redirect()
-            ->action('CompanyController@showOrders', ['company' => $company])
+            ->action('CompanyController@showOrders', ['company' => $request->company_id])
             ->with('success', 'Pedido salvo com sucesso!');
     }
 
@@ -109,6 +105,7 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        //
+        $order->delete();
+        return response()->json($order);
     }
 }
