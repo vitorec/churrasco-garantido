@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Gate;
+use App\Company;
 use App\Order;
 use App\Product;
 use Illuminate\Http\Request;
@@ -59,7 +61,7 @@ class OrderController extends Controller
 
         // Redirect to orders page
         return redirect()
-            ->action('CompanyController@showOrders', ['company' => $request->company_id])
+            ->action('OrderController@showOrders', ['company' => $request->company_id])
             ->with('success', 'Pedido salvo com sucesso!');
     }
 
@@ -108,4 +110,21 @@ class OrderController extends Controller
         $order->delete();
         return response()->json($order);
     }
+
+    public function showOrders(Company $company)
+    {
+        // Abort if user not owns the company
+        if (Gate::denies('company.orders', $company)) {
+            abort(401, 'Ação não autorizada.');
+        }
+
+        // Get the company orders
+        $orders = Order::where('company_id', $company->id)
+            ->with('products')
+            ->orderBy('created_at', 'DESC')
+            ->get();
+
+        return view('orders.show-orders', compact(['company', 'orders']));
+    }
+
 }

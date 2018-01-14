@@ -5,9 +5,9 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper no-margin">
 
-        @include('layouts.menu')
+    @include('layouts.menu')
 
-        <!-- Main content -->
+    <!-- Main content -->
         <section class="content container-fluid">
 
             <div class="row">
@@ -22,13 +22,13 @@
                                 <h3 class="box-title"><b>Meus pedidos</b> - Empresa {{ $company->name }}</h3>
                             </div>
 
-                            <form role="form" id="search-order" method="POST" action="/order/search">
+                            <form role="form" id="search-order" method="POST" action="/company/{company}/orders">
 
                                 {{ csrf_field() }}
 
                                 <div class="box-body">
 
-                                    <div class="form-group col-xs-5 no-margin-left">
+                                    <div class="form-group col-xs-5 no-padding-left">
                                         <label for="cnpj" class="control-label">CNPJ</label>
                                         <input type="text" class="form-control" id="cnpj" name="cnpj" data-inputmask="'mask': '99.999.999/9999-99'">
 
@@ -63,7 +63,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($orders as $order)
+                                        @foreach($orders as $order)
                                             <tr id="order-{{ $order->id }}">
                                                 <td class="text-center vertical-middle">{{ $order->id }}</td>
 
@@ -79,7 +79,7 @@
                                                     <a href="#" class="btn btn-danger btn-xs remove-order" data-id="{{ $order->id }}">Cancelar</a>
                                                 </td>
                                             </tr>
-                                            @endforeach
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div>
